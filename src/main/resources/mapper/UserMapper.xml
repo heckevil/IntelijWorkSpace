@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.koreait.spring.user.UserMapper">
+    <insert id="insUser">
+
+        INSERT INTO t_user
+            (uid, upw, unm, gender)
+        VALUES
+            (#{uid}, #{upw}, #{unm}, #{gender})
+    </insert>
+    <!-- Xml 파일과 UserMapper 인터페이스 파일은 셋트
+       이둘로 DAO로 만든다-->
+</mapper>
