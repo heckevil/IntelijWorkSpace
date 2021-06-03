@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.koreait.spring.user.UserMapper">
+    <!--경로 꼭 확인-->
     <insert id="insUser">
 
         INSERT INTO t_user
@@ -10,4 +11,8 @@
     </insert>
     <!-- Xml 파일과 UserMapper 인터페이스 파일은 셋트
        이둘로 DAO로 만든다-->
+    <select id="selUser" resultType="UserEntity">
+        SELECT * FROM t_user
+        WHERe uid = #{uid}
+    </select>
 </mapper>
