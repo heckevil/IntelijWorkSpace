@@ -27,4 +27,7 @@
         <property name="suffix" value=".jsp" />
     </bean>
 
+    <!-- jackson bean 등록-->
+    <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+
 </beans>

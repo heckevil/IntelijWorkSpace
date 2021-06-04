@@ -6,11 +6,13 @@
 
     <display-name>spring1</display-name>
 
+    <!-- spring 사용하겠다는 xml 경로 지정.-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/applicationContext.xml</param-value>
     </context-param>
 
+    <!-- Spring 컨테이너 생성.-->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -28,7 +30,7 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
+    <!-- Dispatcher 맵핑 .-->
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/</url-pattern>

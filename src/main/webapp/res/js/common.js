@@ -1,0 +1,3 @@
+unction goBack() {
+    history.back();
+}

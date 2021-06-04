@@ -9,4 +9,11 @@
                            ON A.iuser = B.iuser
         ORDER BY A.iboard desc
     </select>
+    <select id="selBoard" resultType="BoardDomain">
+        SELECT A.IBOARD, A.TITLE, A.CTNT, A.REGDT, B.UNM AS WRITERNM
+        from t_board A
+                 left join t_user B
+                           on A.iuser = B.iuser
+        where a.iboard = #{iboard}
+    </select>
 </mapper>
