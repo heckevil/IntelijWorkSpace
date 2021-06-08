@@ -3,9 +3,8 @@ package com.koreait.spring.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
 /* Controller는 맵핑 담담 Service는 로직 담담.*/
@@ -61,5 +60,18 @@ public class UserController {
         service.join(param);
         return "redirect:/user/login";
         /* redirect = senRedirect 랑 같다 */
+    }
+
+    @RequestMapping("/profile")
+    public String profile(){
+        return "user/profile";
+    }
+    //@RequestMapping(value = "/profile",method = RequestMethod.POST)
+
+
+    @PostMapping("/profile")
+    public String profile (MultipartFile profileImg){
+//        파일한개 : MultipartFile, 파일 여러개 MultiPartfile[]
+        return "redirect:"+service.uploadProfile(profileImg);
     }
 }

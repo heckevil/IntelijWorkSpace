@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.koreait.spring.user.UserMapper">
-    <!--경로 꼭 확인-->
     <insert id="insUser">
-
         INSERT INTO t_user
             (uid, upw, unm, gender)
         VALUES
             (#{uid}, #{upw}, #{unm}, #{gender})
     </insert>
-    <!-- Xml 파일과 UserMapper 인터페이스 파일은 셋트
-       이둘로 DAO로 만든다-->
+
     <select id="selUser" resultType="UserEntity">
         SELECT * FROM t_user
-        WHERe uid = #{uid}
+        WHERE uid = #{uid}
     </select>
+
+    <update id="updUser">
+        UPDATE t_user
+        <set>
+            <if test="upw != null and upw != '' ">
+                upw = #{upw}
+            </if>
+            <if test="profileImg != null and profileImg != '' ">
+                profileImg = #{profileImg}
+            </if>
+        </set>
+        WHERE iuser = #{iuser}
+    </update>
+    <!-- set if 문 set은 무조건 들어가고 if 가 true인 값을 넣어줌
+    profileImg랑 upw가 둘다 들어오면 ,(콤마)를 자동으로 넣어줌 (자동으로 떼줄수도 있음)
+    update t_user
+    set upw = #{upw}
+    where iuser = #{iuser}-->
 </mapper>

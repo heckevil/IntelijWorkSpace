@@ -18,6 +18,7 @@
 <body>
 <h1>리스트</h1>
 <div>로그인아이디 :  ${sessionScope.loginUser.uid}</div>
+<div><a href="/user/profile">프로필</a></div>
 <div></div>
 <table>
     <tr>

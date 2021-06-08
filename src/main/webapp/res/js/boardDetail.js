@@ -15,10 +15,14 @@ function regCmt() {
 function regAjax(param) {
     const init = {
         method: 'POST',
-        body: new URLSearchParams(param)
+        body: JSON.stringify(param),
+        headers:{
+            'accept' : 'application/json',
+            'content-type' : 'application/json;charset=UTF-8'
+        }
     };
 
-    fetch('cmtInsSel', init)
+    fetch('cmt', init)
         .then(function(res) {
             return res.json();
         })
@@ -26,12 +30,11 @@ function regAjax(param) {
             console.log(myJson);
 
             switch(myJson.result) {
-                case 0:
+                case 0: //등록 실패
                     alert('등록 실패!');
                     break;
-                case 1:
+                case 1: //등록 성공
                     cmtFrmElem.cmt.value = '';
-
                     getListAjax();
                     break;
             }
@@ -41,8 +44,8 @@ function regAjax(param) {
 //서버에게 댓글 리스트 자료 달라고 요청하는 함수
 function getListAjax() {
     var iboard = cmtListElem.dataset.iboard;
-
-    fetch('cmtInsSel?iboard=' + iboard)
+    /* 쿼리 안보내는 restfull style */
+    fetch('cmt/' + iboard)
         .then(function(res) {
             return res.json();
         })
@@ -77,7 +80,7 @@ function makeCmtElemList(data) {
     tableElem.append(trElemTitle);
     cmtListElem.append(tableElem);
 
-    var loginUserPk = cmtListElem.dataset.login_user_pk;
+    var loginUserPk = cmtListElem.dataset.loginUserPk;
 
     data.forEach(function(item) {
         var trElemCtnt = document.createElement('tr');
@@ -86,7 +89,7 @@ function makeCmtElemList(data) {
         var tdElem3 = document.createElement('td');
         var tdElem4 = document.createElement('td');
 
-        tdElem1.append(item.cmt);
+        tdElem1.innerText = item.cmt;
         tdElem2.append(item.writerNm);
         tdElem3.append(item.regdate);
 
@@ -96,7 +99,10 @@ function makeCmtElemList(data) {
 
             //삭제버튼 클릭시
             delBtn.addEventListener('click', function() {
+                /* String > false = empty, ture = not empty */
+                // Int > false = 0 , true = not 0
                 if(confirm('삭제하시겠습니까?')) {
+                    /* confirm if 문 안에 있으니 boolean형태로 리턴 */
                     delAjax(item.icmt);
                 }
             });
@@ -124,12 +130,13 @@ function makeCmtElemList(data) {
 }
 
 function delAjax(icmt) {
-    fetch('cmtDelUpd?icmt=' + icmt)
+    fetch('cmt/' + icmt,{method:'DELETE'})
         .then(function(res) {
             return res.json();
         })
         .then(function(data) {
             console.log(data);
+
 
             switch(data.result) {
                 case 0:
@@ -146,15 +153,22 @@ function modAjax() {
     var cmtModFrmElem = document.querySelector('#cmtModFrm');
     var param = {
         icmt: cmtModFrmElem.icmt.value,
-        cmt: cmtModFrmElem.cmt.value
+        cmt: cmtModFrmElem.modCmt.value
     }
 
     const init = {
-        method: 'POST',
-        body: new URLSearchParams(param)
+        method: 'PUT',
+        body: JSON.stringify(param),
+        headers: {
+            'accept' : 'application/json',
+            'content-type':'application/json;charset=UTF-8'
+        }
     };
+    /* Json형태로 보낼때 body에 JSON.stringify(param) 널고 받을때
+       controller 파라미터안 @Requestbody로 받음 */
 
-    fetch('cmtDelUpd', init)
+
+    fetch('cmt', init)
         .then(function(res) {
             return res.json();
         })
@@ -176,11 +190,11 @@ function openModModal({icmt, cmt}) {
 
     var cmtModFrmElem = document.querySelector('#cmtModFrm');
     cmtModFrmElem.icmt.value = icmt;
-    cmtModFrmElem.cmt.value = cmt;
+    cmtModFrmElem.modCmt.value = cmt;
 }
 
 function closeModModal() {
     cmtModModalElem.className = 'displayNone';
 }
 
-//getListAjax(); //이 파일이 임포트되면 함수 1회 호출!
+getListAjax();

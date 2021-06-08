@@ -20,7 +20,8 @@
 
     <!--dispatcher 안잡고 /res/**으로 uri이 들어왔으면 경로/res/~ 로 연결해준다 -->
     <mvc:resources mapping="/res/**" location="/res/"/>
-
+   <!-- 파일 업로드 경로 연결 빨간 글씨 무시-->
+    <mvc:resources mapping="/img/**" location="file:///D:/springImg/"/>
     <!-- 사용할 파일명을 완성해주는 객체 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/" />

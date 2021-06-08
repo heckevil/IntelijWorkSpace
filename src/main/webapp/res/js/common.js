@@ -1,3 +1,3 @@
-unction goBack() {
+function goBack() {
     history.back();
 }

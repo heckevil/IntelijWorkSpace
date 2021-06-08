@@ -9,8 +9,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
+
     <title>Title</title>
+    <link defer rel="stylesheet" href="/res/css/common.css">
     <link defer rel="stylesheet" href="/res/css/boardDetail.css">
+
+
     <script defer src="/res/js/boardDetail.js"></script>
 </head>
 <body>
@@ -22,14 +26,28 @@
 <%-- <c:out /> 하나 안하나 결과 값은 같다. 보안상 감싸는 이유가있다. 자바스크립트 공격 방어--%>
 
 <c:if test="${not empty sessionScope.loginUser}">
-    <div>
-        <form id="cmtFrm" onsubmit="return false;">
-            <input type="text" id="cmt">
-            <input type="button" value="댓글달기" onclick="regCmt();">
-        </form>
-    </div>
-    <
+<div>
+    <form id="cmtFrm" onsubmit="return false;">
+        <input type="text" id="cmt" placeholder="댓글" value="">
+        <input type="button" value="댓글달기" onclick="regCmt();">
+    </form>
+</div>
 </c:if>
 <div id="cmtList" data-login-user-pk="${sessionScope.loginUser.iuser}" data-iboard="${param.iboard}"></div>
+
+<div id="modal" class="displayNone">
+    <div class="modal_content">
+        <form id="cmtModFrm" action="#">
+            <input type="hidden" id="icmt">
+            <input type="text" id="modCmt">
+        </form>
+        <input type="button" value="댓글 수정" onclick="modAjax();">
+        <input type="button" value="취소" onclick="closeModModal();">
+    </div>
+</div>
+
+</body>
+</html>
+
 </body>
 </html>

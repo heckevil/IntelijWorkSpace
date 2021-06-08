@@ -16,4 +16,5 @@
                            on A.iuser = B.iuser
         where a.iboard = #{iboard}
     </select>
+
 </mapper>
