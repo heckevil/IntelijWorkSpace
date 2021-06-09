@@ -63,6 +63,12 @@ public class UserService {
         try {
             img.transferTo(target);
 //            파라미터에 입력된 img 파일 target경로 파일에 넣어줌
+
+            //이전 이미지 삭제
+            File deFile = new File(PATH+"/"+loginUser.getProfileImg());
+            if(deFile.exists()){
+                deFile.delete();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

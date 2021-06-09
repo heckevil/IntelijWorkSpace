@@ -6,11 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>회원가입</title>
-</head>
-<body>
+
     <h3>회원가입</h3>
     <form id="frm" action="join" method="post">
         <div>
@@ -31,5 +27,3 @@
             <input type="reset" value="초기화">
         </div>
     </form>
-</body>
-</html>

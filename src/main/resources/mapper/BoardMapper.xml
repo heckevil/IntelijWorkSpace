@@ -16,5 +16,9 @@
                            on A.iuser = B.iuser
         where a.iboard = #{iboard}
     </select>
-
+    <insert id="insBoard">
+        insert into t_board
+            (title, ctnt, iuser)
+        values (#{title}, #{ctnt}, #{iuser})
+    </insert>
 </mapper>

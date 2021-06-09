@@ -6,6 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 
 /* Controller는 맵핑 담담 Service는 로직 담담.*/
 
@@ -39,6 +42,13 @@ public class UserController {
         return "user/login";
         /* 리턴 값을 받아서 DispatcherServlet이 forward를 해줌
          *  언제? mapping 한대로 /user/login가 들어오면 경로+리턴값+.jsp 완성한다*/
+    }
+    @RequestMapping("/logout")
+    public String logout(HttpSession hs, HttpServletRequest req){
+        hs.invalidate();
+        String referer = req.getHeader("Referer");
+//        이전에 방문했던 주소 String 으로 정의 req.getHeader("Referer") < 이전 방문 주소
+        return "redirect:"+referer;
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.POST) /* 매소드위에 맵핑 2차 주소값 뒤에 get,post방식 적어줘야함 안적는건 default 가 get방식*/

@@ -31,6 +31,15 @@ public class BoardController {
         return "board/detail";
     }
 
+    @GetMapping("/writeMod")
+    public void writeMod(){}
+
+    @PostMapping("writeMod")
+    public String writeMod(BoardCmtEntity param){
+        int iboard= service.writeMod(param);
+        return "redirect:detail?iboard = "+iboard;
+    }
+
 
     /* 이하 내용을 json 파일로 만들어어 전하는 목적의 Annotation
    JSP파일로 여는목적에서 json파일로 만드는 목적으로 바꿔준다.
@@ -104,5 +113,7 @@ public class BoardController {
         data.put("result",result);
         return data;
     }
+
+
 
 }
